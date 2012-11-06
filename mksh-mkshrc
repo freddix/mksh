@@ -19,13 +19,8 @@ fi
 set -o emacs
 bind '^I'=complete-list >/dev/null 2>&1
 
-# SYSTEM WIDE ALIASES ETC.
-for i in /etc/shrc.d/*.sh; do
-	[[ -e $i ]] || continue
-	. "$i"
-done
-unset i
-
 HISTFILE=~/.history.mksh
+
+export SHELL='/usr/bin/mksh'
 
 # vi:syntax=sh

@@ -1,7 +1,7 @@
 Summary:	MirBSD Korn Shell
 Name:		mksh
 Version:	40f
-Release:	6
+Release:	7
 License:	BSD
 Group:		Applications/Shells
 Source0:	http://www.mirbsd.org/MirOS/dist/mir/mksh/%{name}-R%{version}.cpio.gz
