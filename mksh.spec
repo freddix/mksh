@@ -1,11 +1,11 @@
 Summary:	MirBSD Korn Shell
 Name:		mksh
-Version:	40f
-Release:	7
+Version:	44
+Release:	2
 License:	BSD
 Group:		Applications/Shells
-Source0:	http://www.mirbsd.org/MirOS/dist/mir/mksh/%{name}-R%{version}.cpio.gz
-# Source0-md5:	22c9570660c2efadf36de7b620d06966
+Source0:	http://www.mirbsd.org/MirOS/dist/mir/mksh/%{name}-R%{version}.tgz
+# Source0-md5:	fe011686319a8c50d5e237fd5e195fd8
 Source1:	%{name}-mkshrc
 Patch0:		%{name}-mkshrc_support.patch
 Patch1:		%{name}-no_stop_alias.patch
@@ -42,10 +42,10 @@ mv mksh/* .; rmdir mksh
 install -d out
 
 CC="%{__cc}" \
-CFLAGS="%{rpmcppflags} %{rpmcflags}" \
+CFLAGS="%{rpmcflags} -DMKSH_GCC55009" \
 LDFLAGS="%{rpmldflags}" \
-chmod +x ./Build.sh
-bash ./Build.sh -Q -r -j -c lto
+CPPFLAGS="%{rpmcppflags}" \
+sh ./Build.sh -Q -r -j -c lto
 
 # skip some tests if not on terminal
 if ! tty -s; then
