@@ -1,7 +1,7 @@
 Summary:	MirBSD Korn Shell
 Name:		mksh
 Version:	48b
-Release:	1
+Release:	2
 License:	BSD
 Group:		Applications/Shells
 Source0:	http://www.mirbsd.org/MirOS/dist/mir/mksh/%{name}-R%{version}.tgz
@@ -46,11 +46,14 @@ CFLAGS="%{rpmcflags} -DMKSH_GCC55009" \
 LDFLAGS="%{rpmldflags}" \
 CPPFLAGS="%{rpmcppflags}" \
 sh ./Build.sh -Q -r -j -c lto
+%{__mv} mksh out/mksh.dynamic
 
-# skip some tests if not on terminal
-if ! tty -s; then
-	skip_tests="-C regress:no-ctty"
-fi
+CC="%{__cc}" \
+CFLAGS="%{rpmcflags} -Os -DMKSH_GCC55009" \
+LDFLAGS="%{rpmldflags} -static" \
+CPPFLAGS="%{rpmcppflags}" \
+sh ./Build.sh -Q -r -j -c lto
+%{__mv} mksh out/mksh.static
 
 %check
 #./test.sh -v $skip_tests
@@ -58,14 +61,14 @@ fi
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{/bin,%{_bindir},%{_mandir}/man1}
-install -p mksh $RPM_BUILD_ROOT%{_bindir}
+install -p out/mksh.dynamic $RPM_BUILD_ROOT%{_bindir}/mksh
+install -p out/mksh.static $RPM_BUILD_ROOT%{_bindir}/mksh.static
 
 cp -a mksh.1 $RPM_BUILD_ROOT%{_mandir}/man1/mksh.1
 echo ".so mksh.1" > $RPM_BUILD_ROOT%{_mandir}/man1/sh.1
 
 install -D %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/mkshrc
 
-#ln -sf /usr/bin/mksh $RPM_BUILD_ROOT/bin/sh
 ln -sf mksh $RPM_BUILD_ROOT%{_bindir}/sh
 
 # some pdksh scripts used that
@@ -84,9 +87,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc dot.mkshrc
 %config(noreplace,missingok) %verify(not md5 mtime size) %{_sysconfdir}/mkshrc
 %attr(755,root,root) %{_bindir}/mksh
+%attr(755,root,root) %{_bindir}/mksh.static
 %attr(755,root,root) %{_bindir}/ksh
 %attr(755,root,root) %{_bindir}/sh
-#%attr(755,root,root) /bin/sh
 %{_mandir}/man1/mksh.1*
 %{_mandir}/man1/sh.1*
 
