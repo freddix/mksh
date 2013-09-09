@@ -46,14 +46,6 @@ CFLAGS="%{rpmcflags} -DMKSH_GCC55009" \
 LDFLAGS="%{rpmldflags}" \
 CPPFLAGS="%{rpmcppflags}" \
 sh ./Build.sh -Q -r -j -c lto
-%{__mv} mksh out/mksh.dynamic
-
-CC="%{__cc}" \
-CFLAGS="%{rpmcflags} -Os -DMKSH_GCC55009" \
-LDFLAGS="%{rpmldflags} -static" \
-CPPFLAGS="%{rpmcppflags}" \
-sh ./Build.sh -Q -r -j -c lto
-%{__mv} mksh out/mksh.static
 
 %check
 #./test.sh -v $skip_tests
@@ -61,8 +53,7 @@ sh ./Build.sh -Q -r -j -c lto
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{/bin,%{_bindir},%{_mandir}/man1}
-install -p out/mksh.dynamic $RPM_BUILD_ROOT%{_bindir}/mksh
-install -p out/mksh.static $RPM_BUILD_ROOT%{_bindir}/mksh.static
+install -p mksh $RPM_BUILD_ROOT%{_bindir}
 
 cp -a mksh.1 $RPM_BUILD_ROOT%{_mandir}/man1/mksh.1
 echo ".so mksh.1" > $RPM_BUILD_ROOT%{_mandir}/man1/sh.1
@@ -87,7 +78,6 @@ rm -rf $RPM_BUILD_ROOT
 %doc dot.mkshrc
 %config(noreplace,missingok) %verify(not md5 mtime size) %{_sysconfdir}/mkshrc
 %attr(755,root,root) %{_bindir}/mksh
-%attr(755,root,root) %{_bindir}/mksh.static
 %attr(755,root,root) %{_bindir}/ksh
 %attr(755,root,root) %{_bindir}/sh
 %{_mandir}/man1/mksh.1*
