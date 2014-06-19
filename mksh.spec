@@ -1,9 +1,9 @@
-Summary:	MirBSD Korn Shell
+Summary:	Free implementation of the Korn Shell
 Name:		mksh
 Version:	49
-Release:	1
+Release:	2
 License:	BSD
-Group:		Applications/Shells
+Group:		Core/Shells
 Source0:	http://www.mirbsd.org/MirOS/dist/mir/mksh/%{name}-R%{version}.tgz
 # Source0-md5:	e8c205cac72c3dc8540bbc3897421422
 Source1:	%{name}-mkshrc
@@ -19,16 +19,9 @@ Provides:	/bin/mksh
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-mksh is the MirBSD enhanced version of the Public Domain Korn shell
-(pdksh), a Bourne-compatible shell which is largely similar to the
-original AT&T Korn shell. It includes bug fixes and feature
-improvements in order to produce a modern, robust shell good for
-interactive and especially script use. It has UTF-8 support in the
-emacs command line editing mode; corresponds to OpenBSD 4.2-current
-ksh sans GNU bash-like $PS1; the build environment requirements are
-autoconfigured; throughout code simplification/bugfix/enhancement has
-been done, and the shell has extended compatibility to other modern
-shells.
+mksh is a command interpreter intended for both interactive and shell
+script use. Its command language is a superset of the sh(C) shell
+language and largely compatible to the original Korn shell.
 
 %prep
 %setup -qcT
