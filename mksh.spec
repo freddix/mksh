@@ -1,7 +1,7 @@
 Summary:	Free implementation of the Korn Shell
 Name:		mksh
 Version:	49
-Release:	2
+Release:	3
 License:	BSD
 Group:		Core/Shells
 Source0:	http://www.mirbsd.org/MirOS/dist/mir/mksh/%{name}-R%{version}.tgz
