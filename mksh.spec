@@ -1,7 +1,8 @@
+# based on PLD Linux spec git://git.pld-linux.org/packages/mksh.git
 Summary:	Free implementation of the Korn Shell
 Name:		mksh
 Version:	49
-Release:	3
+Release:	4
 License:	BSD
 Group:		Core/Shells
 Source0:	http://www.mirbsd.org/MirOS/dist/mir/mksh/%{name}-R%{version}.tgz
