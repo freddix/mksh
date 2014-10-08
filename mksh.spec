@@ -1,12 +1,12 @@
 # based on PLD Linux spec git://git.pld-linux.org/packages/mksh.git
 Summary:	Free implementation of the Korn Shell
 Name:		mksh
-Version:	49
-Release:	4
+Version:	50d
+Release:	1
 License:	BSD
 Group:		Core/Shells
 Source0:	http://www.mirbsd.org/MirOS/dist/mir/mksh/%{name}-R%{version}.tgz
-# Source0-md5:	e8c205cac72c3dc8540bbc3897421422
+# Source0-md5:	1c3882c07a760b23df1ad94ad0b4ed2e
 Source1:	%{name}-mkshrc
 Patch0:		%{name}-mkshrc_support.patch
 Patch1:		%{name}-no_stop_alias.patch
@@ -29,7 +29,7 @@ language and largely compatible to the original Korn shell.
 gzip -dc %{SOURCE0} | cpio -mid
 mv mksh/* .; rmdir mksh
 
-%patch0 -p0
+%patch0 -p1
 %patch1 -p1
 
 %build
